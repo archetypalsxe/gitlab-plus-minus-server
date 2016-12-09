@@ -1,1 +1,7 @@
 # plus-minus-server
+
+***IF NOTHING IS RUNNING ON SERVER, IS PROBABLY BECAUSE YOU ARE NOT LOGGED IN AS ROOT, FOR WHATEVER REASON THIS IS CURRENTLY A REQUIREMENT***
+
+From root directory run: npm start
+
+Can be accessed with port 3000
