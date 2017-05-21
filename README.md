@@ -1,7 +1,11 @@
-# plus-minus-server
+# Plus/Minus Server
 
-***IF NOTHING IS RUNNING ON SERVER, IS PROBABLY BECAUSE YOU ARE NOT LOGGED IN AS ROOT, FOR WHATEVER REASON THIS IS CURRENTLY A REQUIREMENT***
+Server for running the API behind the plus/minus app
 
-From root directory run: npm start
+## Requirements
+* docker
+* docker-compose
+* grunt-cli
 
-Can be accessed with port 3000
+## Docker Container
+* `docker-compose up`
