@@ -1,0 +1,11 @@
+In Arch Linux:
+* Install docker
+* Install angular-cli
+* `ng new plusMinusAngular`
+* `ng serve` should start a server on port 4200
+* Add Dockerfile
+  * Add .dockerignore file
+* Modify package.json file `ng serve -H 0.0.0.0`
+* `docker build -t plusminusangular:dev .`
+* `docker run -d --name plusminusangular -p 4200:4200 plusminusangular:dev`
+  * `docker stop plusminusangular`
