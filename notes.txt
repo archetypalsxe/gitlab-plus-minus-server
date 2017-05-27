@@ -27,3 +27,19 @@ In Arch Linux:
 
 # MongoDB Container
 * `docker run -d --name plusminusmongo -p 27017:27017 mongo`
+  * `docker stop plusminusmongo`
+
+# Docker Compose
+* Create docker-compose.yml file
+* `docker-compose up`
+* Should be able to access all three containers
+
+# Link Together
+* Modify express's package.json to include mongoose
+* Modify express's api.js to utilize mongoose and the database
+* Modify the docker-compose file to link the express & database services
+* Modify angular's app.component.ts file to link together Angular & the Express server
+* Add angular's index.html to add bootstrap
+* Update angular's app.component.html file
+* Allow cross origin by modifying express's server.js
+* `docker-compose up --build` to force the changes to be rebuilt
