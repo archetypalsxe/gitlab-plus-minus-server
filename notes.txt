@@ -26,3 +26,4 @@ In Arch Linux:
   * `docker stop plusminusexpress`
 
 # MongoDB Container
+* `docker run -d --name plusminusmongo -p 27017:27017 mongo`
