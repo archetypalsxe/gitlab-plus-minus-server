@@ -1,4 +1,6 @@
 In Arch Linux:
+
+# Angular Client
 * Install docker
 * Install angular-cli
 * `ng new plusMinusAngular`
@@ -9,3 +11,18 @@ In Arch Linux:
 * `docker build -t plusminusangular:dev .`
 * `docker run -d --name plusminusangular -p 4200:4200 plusminusangular:dev`
   * `docker stop plusminusangular`
+
+# Express Server
+* Create package.json
+* Create server.js
+* Create routes/api.js
+* npm install
+* npm start
+  * Should have stuff on localhost:3000
+* Create Dockerfile
+* Create .dockerignore file
+* `docker build -t plusminusexpress:dev .`
+* `docker run -d --name plusminusexpress -p 3000:3000 plusminusexpress:dev`
+  * `docker stop plusminusexpress`
+
+# MongoDB Container
