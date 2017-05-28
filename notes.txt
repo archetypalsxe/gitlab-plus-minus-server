@@ -1,6 +1,6 @@
-In Arch Linux:
+# In Arch Linux:
 
-# Angular Client
+## Angular Client
 * Install docker
 * Install angular-cli
 * `ng new plusMinusAngular`
@@ -12,7 +12,7 @@ In Arch Linux:
 * `docker run -d --name plusminusangular -p 4200:4200 plusminusangular:dev`
   * `docker stop plusminusangular`
 
-# Express Server
+## Express Server
 * Create package.json
 * Create server.js
 * Create routes/api.js
@@ -25,16 +25,16 @@ In Arch Linux:
 * `docker run -d --name plusminusexpress -p 3000:3000 plusminusexpress:dev`
   * `docker stop plusminusexpress`
 
-# MongoDB Container
+## MongoDB Container
 * `docker run -d --name plusminusmongo -p 27017:27017 mongo`
   * `docker stop plusminusmongo`
 
-# Docker Compose
+## Docker Compose
 * Create docker-compose.yml file
 * `docker-compose up`
 * Should be able to access all three containers
 
-# Link Together
+## Link Together
 * Modify express's package.json to include mongoose
 * Modify express's api.js to utilize mongoose and the database
 * Modify the docker-compose file to link the express & database services
@@ -44,9 +44,14 @@ In Arch Linux:
 * Allow cross origin by modifying express's server.js
 * `docker-compose up --build` to force the changes to be rebuilt
 
-# Trying Volumes
+## Trying Volumes
 * Does not work:
     * `docker run --name plusminusexpress -p 3000:3000 -v $PWD:/usr/src/app plusminusexpress:dev`
     * `docker run --name plusminusangular -p 4200:4200 -v $PWD:/usr/src/app plusminusangular:dev`
 * Works for Example:
     * `docker run --name dockerexample -p 3030:3000 -v $PWD/app:/src/app dockerexample:dev`
+
+## Things to Try
+* Get example working in directory
+  * Apparently it needs the mount or else it won't work
+* package.json scripts
