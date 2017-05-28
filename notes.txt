@@ -43,3 +43,10 @@ In Arch Linux:
 * Update angular's app.component.html file
 * Allow cross origin by modifying express's server.js
 * `docker-compose up --build` to force the changes to be rebuilt
+
+# Trying Volumes
+* Does not work:
+    * `docker run --name plusminusexpress -p 3000:3000 -v $PWD:/usr/src/app plusminusexpress:dev`
+    * `docker run --name plusminusangular -p 4200:4200 -v $PWD:/usr/src/app plusminusangular:dev`
+* Works for Example:
+    * `docker run --name dockerexample -p 3030:3000 -v $PWD/app:/src/app dockerexample:dev`

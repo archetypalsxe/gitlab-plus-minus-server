@@ -6,6 +6,7 @@ services:
     build: plusminusangular # specify the directory of the Dockerfile
     #command: npm start
     volumes:
+        # ./plusminusangular is correct
         - "./plusminusangular:/usr/src/app"
     ports:
       - "4200:4200" # specify port forewarding
@@ -14,6 +15,7 @@ services:
     build: plusminusexpress # specify the directory of the Dockerfile
     #command: npm start
     volumes:
+        # ./plusminusexpress is correct
         - "./plusminusexpress:/usr/src/app"
     ports:
       - "3000:3000" #specify ports forewarding
