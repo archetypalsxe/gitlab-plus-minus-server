@@ -5,6 +5,8 @@ FROM node
 # Create a directory where our app will be placed
 RUN mkdir -p /usr/src/app
 
+RUN npm install nodemon -g
+
 # Change directory so that our commands run inside this new directory
 WORKDIR /usr/src/app
 
@@ -22,3 +24,4 @@ EXPOSE 4200
 
 # Serve the app
 CMD ["npm", "start"]
+#CMD ["nodemon", "/usr/src/app"]

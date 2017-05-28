@@ -4,15 +4,17 @@ version: '2' # specify docker-compose version
 services:
   angular: # name of the first service
     build: plusminusangular # specify the directory of the Dockerfile
+    #command: npm start
     volumes:
-      - plusminusangular:/usr/src/app
+        - "./plusminusangular:/usr/src/app"
     ports:
       - "4200:4200" # specify port forewarding
 
   express: #name of the second service
     build: plusminusexpress # specify the directory of the Dockerfile
+    #command: npm start
     volumes:
-      - plusminusexpress:/usr/src/app
+        - "./plusminusexpress:/usr/src/app"
     ports:
       - "3000:3000" #specify ports forewarding
     links:
@@ -22,6 +24,3 @@ services:
     image: mongo # specify image to build container from
     ports:
       - "27017:27017" # specify port forewarding
-volumes:
-    plusminusangular: {}
-    plusminusexpress: {}
