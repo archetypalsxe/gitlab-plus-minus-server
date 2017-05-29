@@ -1,11 +1,8 @@
 # Create image based on the official Node 6 image from dockerhub
-#FROM node:6
 FROM node:latest
 
 # Create a directory where our app will be placed
 RUN mkdir -p /usr/src/app
-
-RUN npm install nodemon -g
 
 # Change directory so that our commands run inside this new directory
 WORKDIR /usr/src/app
@@ -23,6 +20,4 @@ COPY . /usr/src/app
 EXPOSE 4200
 
 # Serve the app
-#CMD ["npm", "start"]
-#CMD ["nodemon", "/usr/src/app"]
 CMD npm start
