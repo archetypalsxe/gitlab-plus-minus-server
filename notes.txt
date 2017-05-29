@@ -47,8 +47,8 @@
 ## Trying Volumes
 * Works for the Express App!!!!
   * `docker run --name plusminusexpress -p 3000:3000 -v $PWD:/usr/src/app plusminusexpress:dev`
-* Does not work:
-  * `docker run --name plusminusangular -p 4200:4200 -v $PWD:/usr/src/app plusminusangular:dev`
+* Works for Angular App!!!
+  * `docker run --name plusminusangular -p 4200:4200 -v $PWD/src:/usr/src/app/src plusminusangular:dev`
 * Example:
   * Works Outside of Folder
     * `docker run --name dockerexample -p 3030:3000 -v $PWD/app:/src/app dockerexample:dev`
