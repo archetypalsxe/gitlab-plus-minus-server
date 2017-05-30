@@ -3,19 +3,17 @@ version: '2' # specify docker-compose version
 # Define the services/containers to be run
 services:
   angular: # name of the first service
+    # docker run --name plusminusangular -p 4200:4200 -v $PWD/src:/usr/src/app/src plusminusangular:dev
     build: plusminusangular # specify the directory of the Dockerfile
-    #command: npm start
     volumes:
-        # ./plusminusangular is correct
-        - "./plusminusangular:/usr/src/app"
+        - "./plusminusangular/src:/usr/src/app/src"
     ports:
       - "4200:4200" # specify port forewarding
 
   express: #name of the second service
+    # docker run --name plusminusexpress -p 3000:3000 -v $PWD:/usr/src/app plusminusexpress:dev
     build: plusminusexpress # specify the directory of the Dockerfile
-    #command: npm start
     volumes:
-        # ./plusminusexpress is correct
         - "./plusminusexpress:/usr/src/app"
     ports:
       - "3000:3000" #specify ports forewarding
