@@ -10,7 +10,7 @@ const dbHost = 'mongodb://database/mean-docker';
 const connection = mongoose.connect(dbHost);
 autoIncrement.initialize(connection);
 
-// create mongoose schema
+// create mongoose schemas
 const userSchema = new mongoose.Schema({
     email: String,
     firstName: String,
@@ -25,6 +25,23 @@ userSchema.plugin(autoIncrement.plugin, {
 
 // create mongoose model
 const User = mongoose.model('User', userSchema);
+
+
+const activitySchema = new mongoose.Schema({
+    userId: Number,
+    dateTime: {type: Date},
+    description: String,
+    weightValue: Number,
+    syncedDateTime: {type: Date, default: Date.now}
+});
+activitySchema.plugin(autoIncrement.plugin, {
+    model: 'Activity',
+    startAt: 1,
+    incrementBy: 1
+});
+
+// create mongoose model
+const Activity = mongoose.model('Activity', activitySchema);
 
 /* GET api listing. */
 router.get('/', (req, res) => {
@@ -66,6 +83,31 @@ router.post('/users', (req, res) => {
     });
 });
 
+/* GET all activities */
+router.get('/activities', (req, res) => {
+    Activity.find({}, (err, activities) => {
+        if (err) res.status(500).send(error)
 
+        res.status(200).json(activities);
+    });
+});
+
+/* Create an activity */
+router.post('/activities', (req, res) => {
+    let activity = new Activity({
+        userId: req.body.userId,
+        dateTime: req.body.dateTime,
+        description: req.body.description,
+        weightValue: req.body.weightValue
+    });
+
+    activity.save(error => {
+        if (error) res.status(500).send(error);
+
+        res.status(201).json({
+            message: 'Activity created successfully'
+        });
+    });
+});
 
 module.exports = router;

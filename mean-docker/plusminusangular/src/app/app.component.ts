@@ -17,12 +17,14 @@ export class AppComponent implements OnInit {
 
   // Declare empty list of people
   people: any[] = [];
+  activities: any[] = [];
 
   constructor(private http: Http) {}
 
   // Angular 2 Life Cycle event when component has been initialized
   ngOnInit() {
     this.getAllPeople();
+    this.getAllActivities();
   }
 
   // Add one person to the API
@@ -34,6 +36,15 @@ export class AppComponent implements OnInit {
       })
   }
 
+    // Add an activity to the API
+    addActivity(userId, dateTime, description, weightValue) {
+        this.http.post(`${this.API}/activities`, {userId, dateTime, description, weightValue})
+            .map(res => res.json())
+            .subscribe(() => {
+                this.getAllActivities();
+        })
+    }
+
   // Get all users from the API
   getAllPeople() {
     this.http.get(`${this.API}/users`)
@@ -43,4 +54,14 @@ export class AppComponent implements OnInit {
         this.people = people
       })
   }
+
+  // Get all activities from the API
+    getAllActivities() {
+        this.http.get(`${this.API}/activities`)
+            .map(res => res.json())
+            .subscribe(activities => {
+                console.log(activities)
+                this.activities = activities
+        })
+    }
 }
