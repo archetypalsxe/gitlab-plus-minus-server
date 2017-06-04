@@ -10,21 +10,25 @@
     <h3>Add New Person!</h3>
     <form class="form-inline">
       <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" #name>
+        <label for="name">Email</label>
+        <input type="text" class="form-control" id="email" #email>
       </div>
       <div class="form-group">
-        <label for="age">Age</label>
-        <input type="number" class="form-control" id="age" #age>
+        <label for="name">First Name</label>
+        <input type="text" class="form-control" id="firstName" #firstName>
       </div>
-      <button type="button" (click)="addPerson(name.value, age.value)" class="btn btn-primary">Add person</button>
+      <div class="form-group">
+        <label for="name">Last Name</label>
+        <input type="text" class="form-control" id="lastName" #lastName>
+      </div>
+      <button type="button" (click)="addPerson(email.value, firstName.value, lastName.value)" class="btn btn-primary">Add person</button>
     </form>
   </div>
   <div [style.margin-top.px]="10" class="row">
     <h3>People</h3>
     <!-- Bootstrap Card -->
     <div [style.margin-right.px]="10" class="card card-block col-md-3" *ngFor="let person of people">
-      <h4 class="card-title">{{person.name}}  {{person.age}}</h4>
+        <h4 class="card-title">{{person._id}}  {{person.email}} {{person.firstName}} {{person.lastName}} {{person.created}}</h4>
     </div>
   </div>
 </div>

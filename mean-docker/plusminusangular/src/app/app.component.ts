@@ -26,8 +26,8 @@ export class AppComponent implements OnInit {
   }
 
   // Add one person to the API
-  addPerson(name, age) {
-    this.http.post(`${this.API}/users`, {name, age})
+  addPerson(email, firstName, lastName) {
+    this.http.post(`${this.API}/users`, {email, firstName, lastName})
       .map(res => res.json())
       .subscribe(() => {
         this.getAllPeople();

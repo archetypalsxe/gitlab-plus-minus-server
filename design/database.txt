@@ -1,0 +1,19 @@
+users
+    id
+    email
+    firstName
+    lastName
+    created
+activities
+    id
+    userId
+    dateTime
+    description
+    weightValue
+    syncedDateTime
+userWeights
+    id
+    userId
+    dateTime
+    weight
+    syncedDateTime

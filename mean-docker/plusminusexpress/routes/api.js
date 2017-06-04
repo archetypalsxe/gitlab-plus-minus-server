@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'),
+    autoIncrement = require('mongoose-auto-increment');
 const express = require('express');
 const router = express.Router();
 
@@ -6,12 +7,20 @@ const router = express.Router();
 const dbHost = 'mongodb://database/mean-docker';
 
 // Connect to mongodb
-mongoose.connect(dbHost);
+const connection = mongoose.connect(dbHost);
+autoIncrement.initialize(connection);
 
 // create mongoose schema
 const userSchema = new mongoose.Schema({
-  name: String,
-  age: Number
+    email: String,
+    firstName: String,
+    lastName: String,
+    created: {type: Date, default: Date.now}
+});
+userSchema.plugin(autoIncrement.plugin, {
+    model: 'User',
+    startAt: 1,
+    incrementBy: 1
 });
 
 // create mongoose model
@@ -43,8 +52,9 @@ router.get('/users/:id', (req, res) => {
 /* Create a user. */
 router.post('/users', (req, res) => {
     let user = new User({
-        name: req.body.name,
-        age: req.body.age
+        email: req.body.email,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
     });
 
     user.save(error => {
