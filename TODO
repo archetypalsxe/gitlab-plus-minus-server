@@ -1,13 +1,14 @@
 Try with a fresh install to ensure dependencies are correct
 
-Database:
-    design/database.txt
-    Get database matching app needs
-        weights
-Endpoints:
-    Create endpoints that match what the app needs as well
+Ability to delete users/activities/weights through management page
 
-Endpoint for getting activities for specific user
+Credentials
+    Endpoints
+    Management Page
+
+Use with app
+
+Endpoint for getting activities/weights for specific user
 
 Make adding users/activities/weights less error prone
     Not being able to add activity to non-existant user

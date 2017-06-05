@@ -47,17 +47,41 @@
     </form>
   </div>
   <div [style.margin-top.px]="10" class="row">
+    <h3>Add New Weight!</h3>
+    <form class="form-inline">
+      <div class="form-group">
+        <label for="name">User ID</label>
+        <input type="text" class="form-control" id="userId" #userId>
+      </div>
+      <div class="form-group">
+        <label for="name">Date Time</label>
+        <input type="text" class="form-control" id="dateTime" #dateTime>
+      </div>
+      <div class="form-group">
+        <label for="name">Weight</label>
+        <input type="text" class="form-control" id="weight" #weight>
+      </div>
+      <button type="button" (click)="addWeight(userId.value, dateTime.value, weight.value)" class="btn btn-primary">Add Weight</button>
+    </form>
+  </div>
+  <div [style.margin-top.px]="10" class="row">
     <h3>People</h3>
     <!-- Bootstrap Card -->
     <div [style.margin-right.px]="10" class="card card-block col-md-3" *ngFor="let person of people">
-        <h4 class="card-title">{{person._id}}  {{person.email}} {{person.firstName}} {{person.lastName}} {{person.created}}</h4>
+        <h5 class="card-title">{{person._id}}  {{person.email}} {{person.firstName}} {{person.lastName}} {{person.created}}</h5>
     </div>
     <h3>Activities</h3>
     <div [style.margin-right.px]="10" class="card card-block col-md-3" *ngFor="let activity of activities">
-        <h4 class="card-title">{{activity._id}}  {{activity.userId}}
+        <h5 class="card-title">{{activity._id}}  {{activity.userId}}
             {{activity.dateTime}} {{activity.description}}
             {{activity.weightValue}} {{activity.syncedDateTime}}
-        </h4>
+        </h5>
+    </div>
+    <h3>Weights</h3>
+    <div [style.margin-right.px]="10" class="card card-block col-md-3" *ngFor="let weight of weights">
+        <h5 class="card-title">{{weight._id}}  {{weight.userId}}
+            {{weight.dateTime}} {{weight.weight}} {{weight.syncedDateTime}}
+        </h5>
     </div>
   </div>
 </div>

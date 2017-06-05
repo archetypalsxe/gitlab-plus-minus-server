@@ -43,6 +43,21 @@ activitySchema.plugin(autoIncrement.plugin, {
 // create mongoose model
 const Activity = mongoose.model('Activity', activitySchema);
 
+
+const weightSchema = new mongoose.Schema({
+    userId: Number,
+    dateTime: {type: Date},
+    weight: Number,
+    syncedDateTime: {type: Date, default: Date.now}
+});
+weightSchema.plugin(autoIncrement.plugin, {
+    model: 'Weight',
+    startAt: 1,
+    incrementBy: 1
+});
+const Weight = mongoose.model('Weight', weightSchema);
+
+
 /* GET api listing. */
 router.get('/', (req, res) => {
     res.send('API works');
@@ -109,5 +124,34 @@ router.post('/activities', (req, res) => {
         });
     });
 });
+
+
+/* GET all user weights */
+router.get('/weights', (req, res) => {
+    Weight.find({}, (err, weights) => {
+        if (err) res.status(500).send(error)
+
+        res.status(200).json(weights);
+    });
+});
+
+/* Create a weight */
+router.post('/weights', (req, res) => {
+    let weight = new Weight({
+        userId: req.body.userId,
+        dateTime: req.body.dateTime,
+        weight: req.body.weight
+    });
+
+    weight.save(error => {
+        if (error) res.status(500).send(error);
+
+        res.status(201).json({
+            message: 'Weight created successfully'
+        });
+    });
+});
+
+
 
 module.exports = router;

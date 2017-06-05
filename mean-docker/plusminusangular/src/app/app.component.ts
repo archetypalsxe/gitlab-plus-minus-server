@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   // Declare empty list of people
   people: any[] = [];
   activities: any[] = [];
+  weights: any[] = [];
 
   constructor(private http: Http) {}
 
@@ -45,6 +46,14 @@ export class AppComponent implements OnInit {
         })
     }
 
+    addWeight(userId, dateTime, weight) {
+        this.http.post(`${this.API}/weights`, {userId, dateTime, weight})
+            .map(res => res.json())
+            .subscribe(() => {
+                this.getAllWeights();
+        })
+    }
+
   // Get all users from the API
   getAllPeople() {
     this.http.get(`${this.API}/users`)
@@ -62,6 +71,15 @@ export class AppComponent implements OnInit {
             .subscribe(activities => {
                 console.log(activities)
                 this.activities = activities
+        })
+    }
+
+    getAllWeights() {
+        this.http.get(`${this.API}/weights`)
+            .map(res => res.json())
+            .subscribe(weights => {
+                console.log(weights)
+                this.weights = weights
         })
     }
 }
