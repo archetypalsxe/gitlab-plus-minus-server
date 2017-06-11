@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.getAllPeople();
     this.getAllActivities();
+    this.getAllWeights();
   }
 
   // Add one person to the API
