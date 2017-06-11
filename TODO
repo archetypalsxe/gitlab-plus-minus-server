@@ -1,14 +1,4 @@
-Try with a fresh install to ensure dependencies are correct
-
-Ability to delete users/activities/weights through management page
-
-Credentials
-    Endpoints
-    Management Page
-
 Use with app
-
-Endpoint for getting activities/weights for specific user
 
 Make adding users/activities/weights less error prone
     Not being able to add activity to non-existant user
