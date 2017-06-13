@@ -153,6 +153,23 @@ router.post('/weights', (req, res) => {
 });
 
 router.post('/settings', (req, res) => {
+    switch(req.body.action) {
+        case 'delete':
+            switch(req.body.fieldName) {
+                case 'weight':
+                    Weight.find({ _id: req.body.fieldId }).remove().exec();
+                    break;
+                default:
+                    res.status(500).json({
+                        message: "Invalid type provided"
+                    });
+            }
+            break;
+        default:
+            res.status(500).json({
+                message: "Invalid action provided"
+            });
+    }
     res.status(200).json({
         fieldName: req.body.fieldName,
         fieldId: req.body.fieldId

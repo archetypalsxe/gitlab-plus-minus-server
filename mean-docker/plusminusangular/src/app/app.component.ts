@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
 
     // Delete the provided field based on the provided ID
     deleteField(fieldName, fieldId) {
-        this.http.post(`${this.API}/settings`, {fieldName, fieldId})
+        this.http.post(`${this.API}/settings`, {"action": "delete", fieldName, fieldId})
             .map(res => res.json())
             .subscribe(() => {
                 this.getAllWeights();
