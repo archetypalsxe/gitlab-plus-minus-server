@@ -146,9 +146,54 @@ router.post('/weights', (req, res) => {
     weight.save(error => {
         if (error) res.status(500).send(error);
 
-        res.status(201).json({
+        res.status(200).json({
             message: 'Weight created successfully'
         });
+    });
+});
+
+router.post('/settings', (req, res) => {
+    switch(req.body.action) {
+        case 'delete':
+            switch(req.body.fieldName) {
+                case 'weight':
+                    Weight.findById(req.body.fieldId, (err, weight) => {
+                        if (err) res.status(500).send(err)
+
+                        weight.remove();
+                    });
+                    break;
+                case 'activity':
+                    Activity.findById(req.body.fieldId, (err, activity) => {
+                        if (err) res.status(500).send(err)
+
+                        activity.remove();
+                    });
+                    break;
+                case 'person':
+                    User.findById(req.body.fieldId, (err, user) => {
+                        if (err) res.status(500).send(err)
+
+                        user.remove()
+                        Weight.deleteMany({userId: req.body.fieldId}, function (err) {});
+                        Activity.deleteMany({userId: req.body.fieldId}, function (err) {});
+
+                    });
+                    break;
+                default:
+                    res.status(500).json({
+                        message: "Invalid type provided"
+                    });
+            }
+            break;
+        default:
+            res.status(500).json({
+                message: "Invalid action provided"
+            });
+    }
+    res.status(200).json({
+        fieldName: req.body.fieldName,
+        fieldId: req.body.fieldId
     });
 });
 

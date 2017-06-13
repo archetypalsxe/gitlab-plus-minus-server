@@ -1,3 +1,10 @@
 .card-title {
     font-weight: normal;
 }
+
+.deleteField {
+    color: red;
+    font-weight: bold;
+    padding-left: 20px;
+    cursor: pointer;
+}
