@@ -159,6 +159,9 @@ router.post('/settings', (req, res) => {
                 case 'weight':
                     Weight.find({ _id: req.body.fieldId }).remove().exec();
                     break;
+                case 'activity':
+                    Activity.find({_id: req.body.fieldId}).remove().exec();
+                    break;
                 default:
                     res.status(500).json({
                         message: "Invalid type provided"
