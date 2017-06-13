@@ -157,13 +157,28 @@ router.post('/settings', (req, res) => {
         case 'delete':
             switch(req.body.fieldName) {
                 case 'weight':
-                    Weight.find({ _id: req.body.fieldId }).remove().exec();
+                    Weight.findById(req.body.fieldId, (err, weight) => {
+                        if (err) res.status(500).send(err)
+
+                        weight.remove();
+                    });
                     break;
                 case 'activity':
-                    Activity.find({_id: req.body.fieldId}).remove().exec();
+                    Activity.findById(req.body.fieldId, (err, activity) => {
+                        if (err) res.status(500).send(err)
+
+                        activity.remove();
+                    });
                     break;
                 case 'person':
-                    User.find({_id: req.body.fieldId}).remove().exec();
+                    User.findById(req.body.fieldId, (err, user) => {
+                        if (err) res.status(500).send(err)
+
+                        user.remove()
+                        Weight.deleteMany({userId: req.body.fieldId}, function (err) {});
+                        Activity.deleteMany({userId: req.body.fieldId}, function (err) {});
+
+                    });
                     break;
                 default:
                     res.status(500).json({
