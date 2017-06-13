@@ -146,9 +146,16 @@ router.post('/weights', (req, res) => {
     weight.save(error => {
         if (error) res.status(500).send(error);
 
-        res.status(201).json({
+        res.status(200).json({
             message: 'Weight created successfully'
         });
+    });
+});
+
+router.post('/settings', (req, res) => {
+    res.status(200).json({
+        fieldName: req.body.fieldName,
+        fieldId: req.body.fieldId
     });
 });
 

@@ -52,7 +52,18 @@ export class AppComponent implements OnInit {
             .map(res => res.json())
             .subscribe(() => {
                 this.getAllWeights();
-        })
+            })
+    }
+
+    // Delete the provided field based on the provided ID
+    deleteField(fieldName, fieldId) {
+        this.http.post(`${this.API}/settings`, {fieldName, fieldId})
+            .map(res => res.json())
+            .subscribe(() => {
+                this.getAllWeights();
+                this.getAllActivities();
+                this.getAllPeople();
+            })
     }
 
   // Get all users from the API

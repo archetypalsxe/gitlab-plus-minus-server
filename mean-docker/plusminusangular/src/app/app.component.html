@@ -70,7 +70,7 @@
     <div [style.margin-right.px]="10" class="card card-block col-md-3" *ngFor="let person of people">
         <h5 class="card-title">{{person._id}}  {{person.email}}
             {{person.firstName}} {{person.lastName}} {{person.created}}
-            <span class="deleteField">X</span>
+            <span class="deleteField" (click)="deleteField('person', person._id)">X</span>
         </h5>
     </div>
     <h3>Activities</h3>
@@ -78,14 +78,14 @@
         <h5 class="card-title">{{activity._id}}  {{activity.userId}}
             {{activity.dateTime}} {{activity.description}}
             {{activity.weightValue}} {{activity.syncedDateTime}}
-            <span class="deleteField">X</span>
+            <span class="deleteField" (click)="deleteField('activity', activity._id)">X</span>
         </h5>
     </div>
     <h3>Weights</h3>
     <div [style.margin-right.px]="10" class="card card-block col-md-3" *ngFor="let weight of weights">
         <h5 class="card-title">{{weight._id}}  {{weight.userId}}
             {{weight.dateTime}} {{weight.weight}} {{weight.syncedDateTime}}
-            <span class="deleteField">X</span>
+            <span class="deleteField" (click)="deleteField('weight', weight._id)">X</span>
         </h5>
     </div>
   </div>
