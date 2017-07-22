@@ -1,10 +1,3 @@
-<!-- Bootstrap Navbar -->
-<nav class="navbar navbar-light bg-faded">
-  <div class="container">
-    <a class="navbar-brand" href="#">Mean Docker</a>
-  </div>
-</nav>
-
 <div class="container">
   <div [style.margin-top.px]="10" class="row">
     <h3>Add New Person!</h3>
@@ -29,11 +22,11 @@
     <form class="form-inline">
       <div class="form-group">
         <label for="name">User ID</label>
-        <input type="text" class="form-control" id="userId" #userId>
+        <input type="text" class="form-control" id="activityUserId" #activityUserId>
       </div>
       <div class="form-group">
         <label for="name">Date Time</label>
-        <input type="text" class="form-control" id="dateTime" #dateTime>
+        <input type="text" class="form-control" id="activityDateTime" #activityDateTime>
       </div>
       <div class="form-group">
         <label for="name">Description</label>
@@ -43,7 +36,7 @@
         <label for="name">Weight Value</label>
         <input type="text" class="form-control" id="weightValue" #weightValue>
       </div>
-      <button type="button" (click)="addActivity(userId.value, dateTime.value, description.value, weightValue.value)" class="btn btn-primary">Add Activity</button>
+      <button type="button" (click)="addActivity(activityUserId.value, activityDateTime.value, description.value, weightValue.value)" class="btn btn-primary">Add Activity</button>
     </form>
   </div>
   <div [style.margin-top.px]="10" class="row">
@@ -51,17 +44,17 @@
     <form class="form-inline">
       <div class="form-group">
         <label for="name">User ID</label>
-        <input type="text" class="form-control" id="userId" #userId>
+        <input type="text" class="form-control" id="weightUserId" #weightUserId>
       </div>
       <div class="form-group">
         <label for="name">Date Time</label>
-        <input type="text" class="form-control" id="dateTime" #dateTime>
+        <input type="text" class="form-control" id="weightDateTime" #weightDateTime>
       </div>
       <div class="form-group">
         <label for="name">Weight</label>
         <input type="text" class="form-control" id="weight" #weight>
       </div>
-      <button type="button" (click)="addWeight(userId.value, dateTime.value, weight.value)" class="btn btn-primary">Add Weight</button>
+      <button type="button" (click)="addWeight(weightUserId.value, weightDateTime.value, weight.value)" class="btn btn-primary">Add Weight</button>
     </form>
   </div>
   <div [style.margin-top.px]="10" class="row">
