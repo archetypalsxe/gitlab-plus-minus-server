@@ -93,7 +93,8 @@ router.post('/users', (req, res) => {
         if (error) res.status(500).send(error);
 
         res.status(201).json({
-            message: 'User created successfully'
+            success: true,
+            user
         });
     });
 });
