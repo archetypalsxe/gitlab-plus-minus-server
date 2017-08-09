@@ -1,5 +1,25 @@
 <div class="container">
   <div [style.margin-top.px]="10" class="row">
+      <h3>Get Weights for a User</h3>
+      <form class="form-inline">
+      <div class="form-group">
+        <label for="name">User ID:</label>
+        <input type="text" class="form-control" id="userIdWeight" #userIdWeight>
+      </div>
+      <button type="button" (click)="getWeightsForUser(userIdWeight.value)" class="btn btn-primary">Get Weights</button>
+      </form>
+  </div>
+  <div [style.margin-top.px]="10" class="row">
+      <h3>Get Activities for a User</h3>
+      <form class="form-inline">
+      <div class="form-group">
+        <label for="name">User ID:</label>
+        <input type="text" class="form-control" id="userIdActivity" #userIdActivity>
+      </div>
+      <button type="button" (click)="getActivitiesForUser(userIdActivity.value)" class="btn btn-primary">Get Activities</button>
+      </form>
+  </div>
+  <div [style.margin-top.px]="10" class="row">
     <h3>Add New Person!</h3>
     <form class="form-inline">
       <div class="form-group">

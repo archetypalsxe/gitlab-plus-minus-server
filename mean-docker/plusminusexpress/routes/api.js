@@ -108,6 +108,15 @@ router.get('/activities', (req, res) => {
     });
 });
 
+// Get all the activities for a provided user
+router.get('/activities/user/:userId', (req, res) => {
+    Activity.find({ userId: req.params.userId }, function (err, activities) {
+        if(err) res.status(500).send(err)
+
+        res.status(200).json(activities);
+    });
+});
+
 /* Create an activity */
 router.post('/activities', (req, res) => {
     let activity = new Activity({
@@ -131,6 +140,17 @@ router.post('/activities', (req, res) => {
 router.get('/weights', (req, res) => {
     Weight.find({}, (err, weights) => {
         if (err) res.status(500).send(error)
+
+        res.status(200).json(weights);
+    });
+});
+
+/**
+ * Get all of the weights for a specifc user
+ */
+router.get('/weights/user/:userId', (req, res) => {
+    Weight.find({ userId: req.params.userId }, function (err, weights) {
+        if (err) res.status(500).send(err)
 
         res.status(200).json(weights);
     });

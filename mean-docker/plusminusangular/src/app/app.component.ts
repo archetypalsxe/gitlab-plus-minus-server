@@ -29,6 +29,15 @@ export class AppComponent implements OnInit {
     this.getAllWeights();
   }
 
+  // Get the weights for a user
+  getWeightsForUser(userId) {
+    this.http.get(`${this.API}/weights/user/${userId}`)
+        .map(res => res.json())
+        .subscribe(weights => {
+            console.log(weights);
+        })
+  }
+
   // Add one person to the API
   addPerson(email, firstName, lastName) {
     this.http.post(`${this.API}/users`, {email, firstName, lastName})
@@ -84,6 +93,15 @@ export class AppComponent implements OnInit {
                 console.log(activities)
                 this.activities = activities
         })
+    }
+
+    //Get all activities for a user
+    getActivitiesForUser(userId) {
+        this.http.get(`${this.API}/activities/user/${userId}`)
+            .map(res => res.json())
+            .subscribe(activities => {
+                console.log(activities);
+            })
     }
 
     getAllWeights() {
