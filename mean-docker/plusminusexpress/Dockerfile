@@ -10,6 +10,7 @@ RUN npm install nodemon -g
 WORKDIR /usr/src
 
 # Copy dependency definitions
+COPY . /usr/src/app
 COPY package.json /usr/src
 
 # Install dependecies
