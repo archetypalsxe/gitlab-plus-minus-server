@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -H 0.0.0.0 --port 4200 --disableHostCheck true",
+    "start": "ng serve --host 0.0.0.0 --disable-host-check",
     "build": "ng build --watch",
     "test": "ng test",
     "lint": "ng lint",
@@ -25,7 +25,7 @@
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.6",
+    "@angular/cli": "latest",
     "@angular/compiler-cli": "^4.0.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
