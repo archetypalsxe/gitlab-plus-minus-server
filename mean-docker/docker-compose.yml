@@ -4,7 +4,11 @@ version: '2' # specify docker-compose version
 services:
   angular: # name of the first service
     # docker run --name plusminusangular -p 4200:4200 -v $PWD/src:/usr/src/app/src plusminusangular:dev
-    build: plusminusangular # specify the directory of the Dockerfile
+    build:
+      context:
+        plusminusangular # specify the directory of the Dockerfile
+      #args:
+      #  EXPRESS_SERVER: localhost
     volumes:
         - "./plusminusangular/src:/usr/src/app/src"
     ports:
