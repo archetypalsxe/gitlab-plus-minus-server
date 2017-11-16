@@ -9,6 +9,7 @@
     "body-parser": "~1.15.2",
     "express": "~4.15.0",
     "mongoose": "^4.7.0",
+    "mongoose-auth": "*",
     "mongoose-auto-increment": "latest"
   }
 }
