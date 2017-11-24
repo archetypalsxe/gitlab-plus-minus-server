@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'),
-    autoIncrement = require('mongoose-auto-increment');
+    autoIncrement = require('mongoose-auto-increment'),
+    mongooseAuth = require('mongoose-auth');
 const express = require('express');
 const router = express.Router();
 
