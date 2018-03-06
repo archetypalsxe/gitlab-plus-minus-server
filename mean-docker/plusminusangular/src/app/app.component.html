@@ -34,7 +34,11 @@
         <label for="name">Last Name</label>
         <input type="text" class="form-control" id="lastName" #lastName>
       </div>
-      <button type="button" (click)="addPerson(email.value, firstName.value, lastName.value)" class="btn btn-primary">Add Person</button>
+      <div class="form-group">
+        <label for="name">Password</label>
+        <input type="password" class="form-control" id="password" #password>
+      </div>
+      <button type="button" (click)="addPerson(email.value, firstName.value, lastName.value, password.value)" class="btn btn-primary">Add Person</button>
     </form>
   </div>
   <div [style.margin-top.px]="10" class="row">
@@ -82,7 +86,7 @@
     <!-- Bootstrap Card -->
     <div [style.margin-right.px]="10" class="card card-block col-md-3" *ngFor="let person of people">
         <h5 class="card-title">{{person._id}}  {{person.email}}
-            {{person.firstName}} {{person.lastName}} {{person.created}}
+            {{person.firstName}} {{person.lastName}} {{person.created}} {{person.password}}
             <span class="deleteField" (click)="deleteField('person', person._id)">X</span>
         </h5>
     </div>

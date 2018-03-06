@@ -40,8 +40,8 @@ export class AppComponent implements OnInit {
   }
 
   // Add one person to the API
-  addPerson(email, firstName, lastName) {
-    this.http.post(`${this.API}/users`, {email, firstName, lastName})
+  addPerson(email, firstName, lastName, password) {
+    this.http.post(`${this.API}/users`, {email, firstName, lastName, password})
       .map(res => res.json())
       .subscribe(() => {
         this.getAllPeople();

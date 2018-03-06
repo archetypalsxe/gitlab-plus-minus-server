@@ -18,6 +18,8 @@ const userSchema = new mongoose.Schema({
     email: String,
     firstName: String,
     lastName: String,
+    password: String,
+    token: String,
     created: {type: Date, default: Date.now}
 });
 userSchema.plugin(autoIncrement.plugin, {
@@ -66,9 +68,13 @@ router.get('/', (req, res) => {
     res.send('API works');
 });
 
+router.post('/authenticate', (req, res) => {
+
+});
+
 /* GET all users. */
 router.get('/users', (req, res) => {
-    User.find({}, (err, users) => {
+    User.find({ }, '-password', (err, users) => {
         if (err) res.status(500).send(error)
 
         res.status(200).json(users);
@@ -77,7 +83,7 @@ router.get('/users', (req, res) => {
 
 /* GET one users. */
 router.get('/users/:id', (req, res) => {
-    User.findById(req.param.id, (err, users) => {
+    User.findById(req.param.id, '-password', (err, users) => {
         if (err) res.status(500).send(error)
 
         res.status(200).json(users);
@@ -89,7 +95,8 @@ router.post('/users', (req, res) => {
     let user = new User({
         email: req.body.email,
         firstName: req.body.firstName,
-        lastName: req.body.lastName
+        lastName: req.body.lastName,
+        password: req.body.password
     });
 
     user.save(error => {
