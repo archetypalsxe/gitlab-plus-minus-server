@@ -6,10 +6,12 @@
     "start": "nodemon -L app/server.js"
   },
   "dependencies": {
-    "body-parser": "~1.15.2",
+    "body-parser": "^1.15.2",
     "express": "~4.15.0",
+    "jsonwebtoken": "latest",
     "mongoose": "^4.7.0",
-    "mongoose-auth": "*",
-    "mongoose-auto-increment": "latest"
+    "mongoose-auth": "latest",
+    "mongoose-auto-increment": "latest",
+    "morgan": "latest"
   }
 }

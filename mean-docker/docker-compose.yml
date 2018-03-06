@@ -2,6 +2,13 @@ version: '2' # specify docker-compose version
 
 # Define the services/containers to be run
 services:
+  database: # name of the third service
+    image: mongo # specify image to build container from
+    ports:
+      - "27017:27017" # specify port forewarding
+    volumes:
+        - ./mongo:/data/db
+
   angular: # name of the first service
     # docker run --name plusminusangular -p 4200:4200 -v $PWD/src:/usr/src/app/src plusminusangular:dev
     build:
@@ -23,10 +30,3 @@ services:
       - "3000:3000" #specify ports forewarding
     links:
       - database
-
-  database: # name of the third service
-    image: mongo # specify image to build container from
-    ports:
-      - "27017:27017" # specify port forewarding
-    volumes:
-      - ./mongo:/data/db
