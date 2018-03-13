@@ -1,10 +1,10 @@
 const mongoose = require('mongoose'),
     autoIncrement = require('mongoose-auto-increment'),
     morgan = require('morgan'),
-    bodyParser = require('body-parser'),
-    jwt = require('jsonwebtoken');
+    bodyParser = require('body-parser');
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 // MongoDB URL from the docker-compose file
 const dbHost = 'mongodb://database/mean-docker';
@@ -62,6 +62,19 @@ weightSchema.plugin(autoIncrement.plugin, {
 });
 const Weight = mongoose.model('Weight', weightSchema);
 
+function checkAuthorization(req, res, next) {
+  var bearerToken;
+  var bearerHeader = req.headers["authorization"];
+  if (typeof bearHeader !== 'undefined') {
+    var bearer = bearerHeader.split(" ");
+    bearerToken = bearer[1];
+    req.token = bearerToken;
+    next();
+  } else {
+    res.send(403);
+  }
+}
+
 
 /* GET api listing. */
 router.get('/', (req, res) => {
@@ -69,7 +82,27 @@ router.get('/', (req, res) => {
 });
 
 router.post('/authenticate', (req, res) => {
-
+  User.findOne({email: req.body.email, password: req.body.password}, function (err, user) {
+    if (err) {
+      res.json({
+        type: false,
+        data: "Error occurred: "+ err
+      });
+    } else {
+      if (user) {
+        res.json({
+          type: true,
+          data: user,
+          token: user.token
+        });
+      } else {
+        res.json({
+          type: false,
+          data: "Incorrect email/password"
+        });
+      }
+    }
+  });
 });
 
 /* GET all users. */
@@ -82,7 +115,7 @@ router.get('/users', (req, res) => {
 });
 
 /* GET one users. */
-router.get('/users/:id', (req, res) => {
+router.get('/users/:id', checkAuthorization, (req, res) => {
     User.findById(req.param.id, '-password', (err, users) => {
         if (err) res.status(500).send(error)
 
@@ -92,19 +125,26 @@ router.get('/users/:id', (req, res) => {
 
 /* Create a user. */
 router.post('/users', (req, res) => {
-    let user = new User({
+    let userModel = new User({
         email: req.body.email,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         password: req.body.password
     });
 
-    user.save(error => {
-        if (error) res.status(500).send(error);
+    userModel.save(function(error, user) {
+        if (error) {
+          res.status(500).send(error);
+        }
 
-        res.status(201).json({
-            success: true,
-            user
+        //user.token = jwt.sign(user, (process.env.JWT_SECRET || "Not Secure!"));
+        user.token = jwt.sign(user.toJSON(), "Not Secure!");
+        user.save(function(err1, savedUser) {
+          res.status(201).json({
+              success: true,
+              data: savedUser,
+              token: savedUser.token
+          });
         });
     });
 });
@@ -119,7 +159,7 @@ router.get('/activities', (req, res) => {
 });
 
 // Get all the activities for a provided user
-router.get('/activities/user/:userId', (req, res) => {
+router.get('/activities/user/:userId', checkAuthorization, (req, res) => {
     Activity.find({ userId: req.params.userId }, function (err, activities) {
         if(err) res.status(500).send(err)
 
@@ -147,7 +187,7 @@ router.post('/activities', (req, res) => {
 
 
 /* GET all user weights */
-router.get('/weights', (req, res) => {
+router.get('/weights', checkAuthorization, (req, res) => {
     Weight.find({}, (err, weights) => {
         if (err) res.status(500).send(error)
 
