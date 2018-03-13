@@ -82,7 +82,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/authenticate', (req, res) => {
-  User.findOne({email: req.body.email, password: req.body.password}, function (err, user) {
+  User.findOne({email: req.body.email, password: req.body.password}, '-password', function (err, user) {
     if (err) {
       res.json({
         type: false,

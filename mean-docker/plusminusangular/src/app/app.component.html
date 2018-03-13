@@ -1,5 +1,19 @@
 <div class="container">
   <div [style.margin-top.px]="10" class="row">
+      <h3>Login</h3>
+      <form class="form-inline">
+      <div class="form-group">
+        <label for="name">Email:</label>
+        <input type="text" class="form-control" id="userEmail" #userEmail>
+      </div>
+      <div class="form-group">
+        <label for="name">Password:</label>
+        <input type="password" class="form-control" id="userPassword" #userPassword>
+      </div>
+      <button type="button" (click)="loginUser(userEmail.value, userPassword.value)" class="btn btn-primary">Login</button>
+      </form>
+  </div>
+  <div [style.margin-top.px]="10" class="row">
       <h3>Get Weights for a User</h3>
       <form class="form-inline">
       <div class="form-group">

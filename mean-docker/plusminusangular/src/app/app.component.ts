@@ -39,6 +39,14 @@ export class AppComponent implements OnInit {
         })
   }
 
+  loginUser(email, password) {
+    this.http.post(`${this.API}/authenticate`, {email, password})
+      .map(res => res.json())
+      .subscribe((response) => {
+        console.log(response.token);
+      })
+  }
+
   // Add one person to the API
   addPerson(email, firstName, lastName, password) {
     this.http.post(`${this.API}/users`, {email, firstName, lastName, password})
