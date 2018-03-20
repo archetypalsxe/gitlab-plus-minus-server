@@ -15,6 +15,8 @@ export class AppComponent implements OnInit {
   // Link to our api, pointing to localhost
   API = 'http://' + location.hostname + ':3000';
 
+  webToken = undefined;
+
 
   // Declare empty list of people
   people: any[] = [];
@@ -43,7 +45,12 @@ export class AppComponent implements OnInit {
     this.http.post(`${this.API}/authenticate`, {email, password})
       .map(res => res.json())
       .subscribe((response) => {
-        console.log(response.token);
+        if(response.token === undefined) {
+          alert("Invalid email or password entered");
+        } else {
+          this.webToken = response.token;
+          alert("Logged in!");
+        }
       })
   }
 
