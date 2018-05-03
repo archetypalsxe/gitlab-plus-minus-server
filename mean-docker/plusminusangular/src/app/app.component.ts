@@ -1,14 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
+import { HttpHandler, HttpInterceptor, HttpRequest, HttpEvent } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 // Import rxjs map operator
 import 'rxjs/add/operator/map';
 
+
+@Injectable()
+export class TokenInterceptor implements HttpInterceptor {
+
+  intercept (request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+      console.log("Testing intercept!");
+      console.log('Hello request!', request);
+      return next.handle(request);
+
+    }
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ]
 })
+
 export class AppComponent implements OnInit {
   title = 'app works!';
 
