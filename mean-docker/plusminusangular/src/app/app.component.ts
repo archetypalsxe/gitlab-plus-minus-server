@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpHandler, HttpInterceptor, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -44,11 +45,11 @@ export class AppComponent implements OnInit {
 
 
   // Declare empty list of people
-  people: any[] = [];
-  activities: any[] = [];
-  weights: any[] = [];
+  people: Object = [];
+  activities: Object = [];
+  weights: Object = [];
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   // Angular 2 Life Cycle event when component has been initialized
   ngOnInit() {
@@ -60,7 +61,7 @@ export class AppComponent implements OnInit {
   // Get the weights for a user
   getWeightsForUser(userId) {
     this.http.get(`${this.API}/weights/user/${userId}`)
-        .map(res => res.json())
+        .map(res => res)
         .subscribe(weights => {
             console.log(weights);
         })
@@ -68,21 +69,23 @@ export class AppComponent implements OnInit {
 
   loginUser(email, password) {
     this.http.post(`${this.API}/authenticate`, {email, password})
-      .map(res => res.json())
+      .map(res => res)
       .subscribe((response) => {
+        console.log(response);
+        /*
         if(response.token === undefined) {
           alert("Invalid email or password entered");
         } else {
           this.webToken = response.token;
           alert("Logged in!");
-        }
+        }*/
       })
   }
 
   // Add one person to the API
   addPerson(email, firstName, lastName, password) {
     this.http.post(`${this.API}/users`, {email, firstName, lastName, password})
-      .map(res => res.json())
+      .map(res => res)
       .subscribe(() => {
         this.getAllPeople();
       })
@@ -91,7 +94,7 @@ export class AppComponent implements OnInit {
     // Add an activity to the API
     addActivity(userId, dateTime, description, weightValue) {
         this.http.post(`${this.API}/activities`, {userId, dateTime, description, weightValue})
-            .map(res => res.json())
+            .map(res => res)
             .subscribe(() => {
                 this.getAllActivities();
         })
@@ -99,7 +102,7 @@ export class AppComponent implements OnInit {
 
     addWeight(userId, dateTime, weight) {
         this.http.post(`${this.API}/weights`, {userId, dateTime, weight})
-            .map(res => res.json())
+            .map(res => res)
             .subscribe(() => {
                 this.getAllWeights();
             })
@@ -108,7 +111,7 @@ export class AppComponent implements OnInit {
     // Delete the provided field based on the provided ID
     deleteField(fieldName, fieldId) {
         this.http.post(`${this.API}/settings`, {"action": "delete", fieldName, fieldId})
-            .map(res => res.json())
+            .map(res => res)
             .subscribe(() => {
                 this.getAllWeights();
                 this.getAllActivities();
@@ -119,7 +122,7 @@ export class AppComponent implements OnInit {
   // Get all users from the API
   getAllPeople() {
     this.http.get(`${this.API}/users`)
-      .map(res => res.json())
+      .map(res => res)
       .subscribe(people => {
         console.log(people)
         this.people = people
@@ -129,7 +132,7 @@ export class AppComponent implements OnInit {
   // Get all activities from the API
     getAllActivities() {
         this.http.get(`${this.API}/activities`)
-            .map(res => res.json())
+            .map(res => res)
             .subscribe(activities => {
                 console.log(activities)
                 this.activities = activities
@@ -139,7 +142,7 @@ export class AppComponent implements OnInit {
     //Get all activities for a user
     getActivitiesForUser(userId) {
         this.http.get(`${this.API}/activities/user/${userId}`)
-            .map(res => res.json())
+            .map(res => res)
             .subscribe(activities => {
                 console.log(activities);
             })
@@ -147,7 +150,7 @@ export class AppComponent implements OnInit {
 
     getAllWeights() {
         this.http.get(`${this.API}/weights`)
-            .map(res => res.json())
+            .map(res => res)
             .subscribe(weights => {
                 console.log(weights)
                 this.weights = weights
