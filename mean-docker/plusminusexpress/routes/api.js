@@ -68,11 +68,13 @@ function checkAuthorization(req, res, next) {
   console.log("Testing");
   console.log(req.headers);
   if (typeof bearHeader !== 'undefined') {
+    console.log("Defined!");
     var bearer = bearerHeader.split(" ");
     bearerToken = bearer[1];
     req.token = bearerToken;
     next();
   } else {
+    console.log("not defined");
     res.send(403);
   }
 }

@@ -5,21 +5,12 @@ import { HttpHandler, HttpInterceptor, HttpRequest, HttpEvent } from '@angular/c
 import { Observable } from 'rxjs/Observable';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {TokenStorage} from './token.storage';
+import { TokenInterceptor } from './token.interceptor';
 
 // Import rxjs map operator
 import 'rxjs/add/operator/map';
 
-@Injectable()
-export class TokenInterceptor implements HttpInterceptor {
-
-  intercept (request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-      console.log("Testing intercept!");
-      console.log('Hello request!', request);
-      return next.handle(request);
-
-    }
-}
 
 @Component({
   selector: 'app-root',
@@ -48,7 +39,7 @@ export class AppComponent implements OnInit {
   activities: Object = [];
   weights: Object = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(public tokenStorage: TokenStorage, private http: HttpClient) {}
 
   // Angular 2 Life Cycle event when component has been initialized
   ngOnInit() {
@@ -71,14 +62,19 @@ export class AppComponent implements OnInit {
       .map(res => res)
       .subscribe((response) => {
         console.log(response);
-        /*
         if(response.token === undefined) {
           alert("Invalid email or password entered");
         } else {
           this.webToken = response.token;
+          console.log(this.tokenStorage);
+          this.tokenStorage.token = response.token;
           alert("Logged in!");
-        }*/
+        }
       })
+  }
+
+  getToken() {
+    return this.webToken;
   }
 
   // Add one person to the API
@@ -140,6 +136,7 @@ export class AppComponent implements OnInit {
 
     //Get all activities for a user
     getActivitiesForUser(userId) {
+      console.log("The web token: " + this.getToken());
         this.http.get(`${this.API}/activities/user/${userId}`)
             .map(res => res)
             .subscribe(activities => {
