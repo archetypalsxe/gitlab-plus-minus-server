@@ -9,7 +9,6 @@ import { Injectable } from '@angular/core';
 // Import rxjs map operator
 import 'rxjs/add/operator/map';
 
-
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 

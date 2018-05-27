@@ -1,4 +1,4 @@
-# Create image based on the official Node 6 image from the dockerhub
+# Create image based on the official Node image from the dockerhub
 FROM node:latest
 
 # Create a directory where our app will be placed

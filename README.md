@@ -8,9 +8,12 @@ Server for running the API behind the plus/minus app
 
 ## Docker Container
 * From the mean-docker folder:
+  * `docker-compose build --pull`
   * `docker-compose up`
-* If you made any changes to the docker images this is required to force a biuld:
+* When changes are local, and not concerned about pulling:
   * `docker-compose up --build`
+* If no changes to Docker, and also not concerned about pulling (fastest):
+  * `docker-compose up`
 
 ## Access
 * If running locally:
