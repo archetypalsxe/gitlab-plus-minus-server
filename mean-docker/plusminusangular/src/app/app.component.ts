@@ -63,6 +63,7 @@ export class AppComponent implements OnInit {
       .subscribe((response) => {
         console.log(response);
         if(response.token === undefined) {
+          this.tokenStorage.removeToken();
           alert("Invalid email or password entered");
         } else {
           this.webToken = response.token;

@@ -10,4 +10,8 @@ export class TokenStorage {
   public setToken(token: string) {
     return localStorage.setItem('token', token);
   }
+
+  public removeToken() {
+    return localStorage.setItem('token', '');
+  }
 }

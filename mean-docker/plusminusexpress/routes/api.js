@@ -66,16 +66,13 @@ const Weight = mongoose.model('Weight', weightSchema);
 function checkAuthorization(req, res, next) {
   var bearerToken;
   var bearerHeader = req.headers["authorization"];
-  console.log("Testing");
-  console.log(req.headers);
-  if (typeof bearHeader !== 'undefined') {
-    console.log("Defined!");
+  if (bearerHeader) {
     var bearer = bearerHeader.split(" ");
     bearerToken = bearer[1];
     req.token = bearerToken;
+    console.log(req.token);
     next();
   } else {
-    console.log("not defined");
     res.send(403);
   }
 }
