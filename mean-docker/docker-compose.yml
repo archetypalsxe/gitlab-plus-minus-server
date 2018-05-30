@@ -30,3 +30,5 @@ services:
       - "3000:3000" #specify ports forewarding
     links:
       - database
+    #depends_on:
+    #  - database

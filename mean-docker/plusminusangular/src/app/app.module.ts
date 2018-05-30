@@ -8,7 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -16,14 +16,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
+    TokenStorage,
     {
            provide: HTTP_INTERCEPTORS,
            useClass: TokenInterceptor,
-           multi: true
-    },
-    {
-           provide: TokenStorage,
-           useClass: TokenStorage,
            multi: true
     }
   ],

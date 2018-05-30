@@ -13,6 +13,7 @@ const dbHost = 'mongodb://database/mean-docker';
 const connection = mongoose.connect(dbHost);
 autoIncrement.initialize(connection);
 
+
 // create mongoose schemas
 const userSchema = new mongoose.Schema({
     email: String,

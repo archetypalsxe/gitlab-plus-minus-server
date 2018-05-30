@@ -9,9 +9,7 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(public tokenStorage: TokenStorage) {}
 
   intercept (request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      console.log("Token: " + this.tokenStorage.token);
-      console.log("Token Storage:");
-      console.log(this.tokenStorage);
+      console.log("Token: " + this.tokenStorage.getToken());
       return next.handle(request);
     }
 }

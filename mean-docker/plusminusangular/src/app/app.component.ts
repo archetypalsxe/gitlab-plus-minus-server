@@ -66,8 +66,7 @@ export class AppComponent implements OnInit {
           alert("Invalid email or password entered");
         } else {
           this.webToken = response.token;
-          console.log(this.tokenStorage);
-          this.tokenStorage.token = response.token;
+          this.tokenStorage.setToken(response.token);
           alert("Logged in!");
         }
       })
@@ -136,7 +135,6 @@ export class AppComponent implements OnInit {
 
     //Get all activities for a user
     getActivitiesForUser(userId) {
-      console.log("The web token: " + this.getToken());
         this.http.get(`${this.API}/activities/user/${userId}`)
             .map(res => res)
             .subscribe(activities => {
