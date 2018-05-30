@@ -128,7 +128,7 @@ router.post('/authenticate', (req, res) => {
 });
 
 /* GET all users. */
-router.get('/users', (req, res) => {
+router.get('/users', checkAuthorization, (req, res) => {
     User.find({ }, '-password', (err, users) => {
         if (err) res.status(500).send(error)
 
@@ -136,17 +136,19 @@ router.get('/users', (req, res) => {
     });
 });
 
-/* GET one users. */
+/* GET one user. */
 router.get('/users/:id', checkAuthorization, (req, res) => {
+  if (confirmValidatedUser(res, req.param.id)) {
     User.findById(req.param.id, '-password', (err, users) => {
         if (err) res.status(500).send(error)
 
         res.status(200).json(users);
     });
+  }
 });
 
 /* Create a user. */
-router.post('/users', (req, res) => {
+router.post('/users', checkAuthorization, (req, res) => {
     let userModel = new User({
         email: req.body.email,
         firstName: req.body.firstName,
@@ -172,7 +174,7 @@ router.post('/users', (req, res) => {
 });
 
 /* GET all activities */
-router.get('/activities', (req, res) => {
+router.get('/activities', checkAuthorization, (req, res) => {
     Activity.find({}, (err, activities) => {
         if (err) res.status(500).send(error)
 
@@ -194,7 +196,7 @@ router.get('/activities/user/:userId', checkAuthorization, (req, res) => {
 });
 
 /* Create an activity */
-router.post('/activities', (req, res) => {
+router.post('/activities', checkAuthorization, (req, res) => {
     let activity = new Activity({
         userId: req.body.userId,
         dateTime: req.body.dateTime,
@@ -224,16 +226,19 @@ router.get('/weights', checkAuthorization, (req, res) => {
 /**
  * Get all of the weights for a specifc user
  */
-router.get('/weights/user/:userId', (req, res) => {
+router.get('/weights/user/:userId', checkAuthorization, (req, res) => {
+  if (confirmValidatedUser(res, req.params.userId)) {
     Weight.find({ userId: req.params.userId }, function (err, weights) {
         if (err) res.status(500).send(err)
 
         res.status(200).json(weights);
     });
+  }
 });
 
 /* Create a weight */
-router.post('/weights', (req, res) => {
+router.post('/weights', checkAuthorization, (req, res) => {
+  if (confirmValidatedUser(res, req.body.userId)) {
     let weight = new Weight({
         userId: req.body.userId,
         dateTime: req.body.dateTime,
@@ -247,9 +252,10 @@ router.post('/weights', (req, res) => {
             message: 'Weight created successfully'
         });
     });
+  }
 });
 
-router.post('/settings', (req, res) => {
+router.post('/settings', checkAuthorization, (req, res) => {
     switch(req.body.action) {
         case 'delete':
             switch(req.body.fieldName) {
