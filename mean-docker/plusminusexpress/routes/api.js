@@ -63,7 +63,10 @@ weightSchema.plugin(autoIncrement.plugin, {
 });
 const Weight = mongoose.model('Weight', weightSchema);
 
+var validatedUser = null;
+
 function checkAuthorization(req, res, next) {
+  validatedUser = null;
   var bearerToken;
   var bearerHeader = req.headers["authorization"];
   if (bearerHeader) {
@@ -71,9 +74,25 @@ function checkAuthorization(req, res, next) {
     bearerToken = bearer[1];
     req.token = bearerToken;
     console.log(req.token);
-    next();
+    User.findOne({token: req.token}, '-password', function (err, user) {
+      if (user) {
+        validatedUser = user;
+        next();
+      } else {
+        // Token not found in database
+        res.send(403);
+      }
+    });
   } else {
     res.send(403);
+  }
+}
+
+function confirmValidatedUser(res, userId) {
+  if (userId && validatedUser && userId == validatedUser._id) {
+    return true;
+  } else {
+    res.status(403).render();
   }
 }
 
@@ -162,11 +181,15 @@ router.get('/activities', (req, res) => {
 
 // Get all the activities for a provided user
 router.get('/activities/user/:userId', checkAuthorization, (req, res) => {
-    Activity.find({ userId: req.params.userId }, function (err, activities) {
-        if(err) res.status(500).send(err)
+    if (confirmValidatedUser(res, req.params.userId)) {
+      Activity.find({ userId: req.params.userId }, function (err, activities) {
+          if(err) {
+            res.status(500).send(err);
+          }
 
-        res.status(200).json(activities);
-    });
+          res.status(200).json(activities);
+      });
+    }
 });
 
 /* Create an activity */
