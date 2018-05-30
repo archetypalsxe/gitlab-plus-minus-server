@@ -92,7 +92,8 @@ function confirmValidatedUser(res, userId) {
   if (userId && validatedUser && userId == validatedUser._id) {
     return true;
   } else {
-    res.status(403).render();
+    res.sendStatus(403);
+    return;
   }
 }
 
@@ -181,15 +182,15 @@ router.get('/activities', (req, res) => {
 
 // Get all the activities for a provided user
 router.get('/activities/user/:userId', checkAuthorization, (req, res) => {
-    if (confirmValidatedUser(res, req.params.userId)) {
-      Activity.find({ userId: req.params.userId }, function (err, activities) {
-          if(err) {
-            res.status(500).send(err);
-          }
+  if (confirmValidatedUser(res, req.params.userId)) {
+    Activity.find({ userId: req.params.userId }, function (err, activities) {
+        if(err) {
+          res.status(500).send(err);
+        }
 
-          res.status(200).json(activities);
-      });
-    }
+        res.status(200).json(activities);
+    });
+  }
 });
 
 /* Create an activity */
